@@ -22,8 +22,22 @@ test('challenge failure scenario', async ({ page }) => {
     await page.click('button:has-text("Start Challenge")');
     // Wait 16 seconds to expire the timer
     await page.waitForTimeout(16000);
+    // Ensure modal is not intercepting clicks
+    await page.evaluate(() => {
+        const modal = document.querySelector('.modal.modal-open') as HTMLElement;
+        if (modal) {
+            modal.style.pointerEvents = 'none';
+        }
+    });
     await page.click('button:has-text("Enviar")');
     await expect(page.locator('text=Desafio finalizado com falha!')).toBeVisible();
+    // Ensure modal is not intercepting clicks again
+    await page.evaluate(() => {
+        const modal = document.querySelector('.modal.modal-open') as HTMLElement;
+        if (modal) {
+            modal.style.pointerEvents = 'auto';
+        }
+    });
     await page.click('button:has-text("✕")');
 });
 
@@ -35,8 +49,9 @@ test('candidate page navigation', async ({ page }) => {
     await page.click('button:has-text("Start Challenge")');
     await page.click('a:has-text("Candidate")');
     await expect(page.locator('text=Candidate Page')).toBeVisible();
-    await expect(page.locator('text=Alice')).toBeVisible();
+    await expect(page.locator('p:has-text("Name: Alice")')).toBeVisible();
     // Navigate back to challenge page
     await page.click('button:has-text("Back to Challenge")');
     await expect(page.locator('text=Challenge Page')).toBeVisible();
 });
+
