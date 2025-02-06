@@ -1,5 +1,15 @@
 import { test, expect } from '@playwright/test';
 
+async function waitForButtonHoverToBeRed(page, selector) {
+    await page.hover(selector);
+    await page.waitForFunction(selector => {
+        const button = document.querySelector(selector);
+        if (!button) return false;
+        const style = window.getComputedStyle(button);
+        return style.backgroundColor === 'rgb(239, 68, 68)'; // Cor vermelha em RGB correspondente a bg-red-500
+    }, selector);
+}
+
 test('challenge success scenario', async ({ page }) => {
     await page.goto('http://localhost:4173');
     await expect(page.locator('input').nth(0)).toBeVisible();
@@ -27,11 +37,13 @@ test('challenge failure scenario', async ({ page }) => {
     await page.locator('input').nth(1).fill('987654321');
     await page.locator('input').nth(2).fill('jane@example.com');
     await page.click('button:has-text("Start Challenge")');
-    // Wait 16 seconds to expire the timer
-    await page.waitForTimeout(16000);
+    // Wait until the text "Desafio finalizado com falha!" is visible
+    await page.waitForSelector('text=Desafio finalizado com falha!');
     await expect(page.locator('text=Desafio finalizado com falha!')).toBeVisible();
+    // Wait for the "X" button to be red on hover
+    await waitForButtonHoverToBeRed(page, '#close-modal-button');
     // Close the modal by clicking the "X"
-    await page.click('button:has-text("✕")');
+    await page.click('#close-modal-button');
     await expect(page.locator('text=Desafio finalizado com falha!')).not.toBeVisible();
 });
 
