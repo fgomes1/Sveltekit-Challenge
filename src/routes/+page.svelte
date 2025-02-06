@@ -66,7 +66,7 @@
     {/if}
 
     {#if $showModal}
-        <div class="modal modal-open" on:click|self={() => showModal.set(false)}>
+        <div class="modal modal-open" role="dialog" aria-modal="true" on:click|self={() => showModal.set(false)} on:keydown|self={(e) => e.key === 'Escape' && showModal.set(false)}>
             <div class="modal-box relative">
                 <button class="btn btn-sm btn-circle absolute right-2 top-2" on:click={() => showModal.set(false)}>✕</button>
                 {#if $challengeResult === 'success'}
