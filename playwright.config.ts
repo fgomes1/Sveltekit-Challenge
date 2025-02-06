@@ -8,7 +8,10 @@ export default defineConfig({
     testDir: 'e2e',
     testMatch: /(.+.)?(test|spec).[jt]s/,
     use: {
-        headless: false, 
+        headless: false,
+        launchOptions: {
+            slowMo: 800 // Adiciona um atraso de 500ms entre as ações
+        }
     }
 });
 

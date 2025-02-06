@@ -54,25 +54,25 @@
             <input type="email" bind:value={email} class="input input-bordered" />
         </label>
     </div>
-    <button class="btn btn-primary mt-4" on:click={handleStartChallenge}>Start Challenge</button>
+    <button class="btn btn-primary mt-4 hover:bg-blue-700 hover:shadow-lg transition duration-300" on:click={handleStartChallenge}>Start Challenge</button>
 
     {#if $challengeStarted}
         <div class="mt-4">
             <p>Countdown: {formatTime($timer)}</p>
-            <button class="btn btn-accent mt-2" on:click={handleSubmitChallenge}>Enviar</button>
+            <button class="btn btn-accent mt-2 hover:bg-green-700 hover:shadow-lg transition duration-300" on:click={handleSubmitChallenge}>Enviar</button>
             <!-- Candidate button appears together with the countdown -->
-            <a href="/candidate" class="btn btn-secondary mt-2 ml-2">Candidate</a>
+            <a href="/candidate" class="btn btn-secondary mt-2 ml-2 hover:bg-gray-700 hover:shadow-lg transition duration-300">Candidate</a>
         </div>
     {/if}
 
     {#if $showModal}
         <div class="modal modal-open" role="dialog" aria-modal="true" on:click|self={() => showModal.set(false)} on:keydown|self={(e) => e.key === 'Escape' && showModal.set(false)}>
             <div class="modal-box relative">
-                <button class="btn btn-sm btn-circle absolute right-2 top-2" on:click={() => showModal.set(false)}>✕</button>
+                <button class="btn btn-sm btn-circle absolute right-2 top-2 hover:bg-red-700 hover:shadow-lg transition duration-300" on:click={() => showModal.set(false)}>✕</button>
                 {#if $challengeResult === 'success'}
-                    <p>Desafio finalizado com sucesso!</p>
+                    <p class="text-green-500 font-bold">Desafio finalizado com sucesso!</p>
                 {:else if $challengeResult === 'failure'}
-                    <p>Desafio finalizado com falha!</p>
+                    <p class="text-red-500 font-bold">Desafio finalizado com falha!</p>
                 {/if}
             </div>
         </div>
