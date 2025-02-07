@@ -6,7 +6,6 @@
 </script>
 
 <div class="p-4 relative">
-    <!-- Back to Challenge button in the top right corner -->
     <button class="btn btn-primary absolute top-4 right-4" on:click={() => goto('/')}>
         Voltar ao Desafio
     </button>

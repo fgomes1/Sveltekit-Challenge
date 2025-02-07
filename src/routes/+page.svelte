@@ -27,7 +27,6 @@
         phone = input.value;
     }
 
-    // Reactive block to auto-show modal when timer reaches 0 and challenge hasn't been submitted.
     $: if ($challengeStarted && $timer === 0 && $challengeResult === null) {
         challengeResult.set('failure');
         showModal.set(true);
