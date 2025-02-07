@@ -8,14 +8,24 @@
 <div class="p-4 relative">
     <!-- Back to Challenge button in the top right corner -->
     <button class="btn btn-primary absolute top-4 right-4" on:click={() => goto('/')}>
-        Back to Challenge
+        Voltar ao Desafio
     </button>
-    <h1 class="text-2xl font-bold mb-4">Candidate Page</h1>
+    <h1 class="text-2xl font-bold mb-4 text-center">Página do Candidato</h1>
     {#if $challengeStarted && data}
-        <p>Name: {data.name}</p>
-        <p>Phone: {data.phone}</p>
-        <p>Email: {data.email}</p>
+        <div class="flex justify-center">
+            <div class="card card-side bg-base-100 shadow-xl">
+                <figure>
+                    <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp" alt="Candidate" />
+                </figure>
+                <div class="card-body">
+                    <h2 class="card-title">Informações do Candidato</h2>
+                    <p>Nome: {data.name}</p>
+                    <p>Telefone: {data.phone}</p>
+                    <p>Email: {data.email}</p>
+                </div>
+            </div>
+        </div>
     {:else}
-        <p>The challenge has not been started yet.</p>
+        <p class="text-center">O desafio ainda não começou.</p>
     {/if}
 </div>
